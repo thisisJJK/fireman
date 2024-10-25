@@ -1,87 +1,137 @@
 import 'package:fireman/view/main/mode_view.dart';
+import 'package:fireman/view/main/widget/btn.dart';
 import 'package:fireman/view_model/fire_view_model.dart';
+import 'package:fireman/view_model/firewood_thanks_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
 
 class FireView extends StatelessWidget {
   FireView({super.key});
-  final FireViewModel _fireViewModel = Get.put(FireViewModel());
+
+  final FireViewModel fireViewModel = Get.put(FireViewModel());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       body: SafeArea(
-        child: Stack(
-          children: [
-            //logo
-            GestureDetector(
-              onTap: () => Get.to(
-                () => const ModeView(),
-                transition: Transition.fadeIn,
-              ),
-              child: Align(
-                alignment: const Alignment(0, -1),
-                child: Image.asset(
-                  'assets/logo.png',
-                  width: 100,
-                  height: 100,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+          child: Stack(
+            children: [
+              //logo
+              GestureDetector(
+                onTap: () => Get.off(
+                  () => const ModeView(),
+                  transition: Transition.fadeIn,
+                ),
+                child: Align(
+                  alignment: const Alignment(0, -1),
+                  child: Image.asset(
+                    'assets/logo.png',
+                    width: 100,
+                    height: 100,
+                  ),
                 ),
               ),
-            ),
-            //text
-            Obx(
-              () => Align(
-                alignment: const Alignment(0, -0.65),
-                child: Text(
-                  _fireViewModel.displayText.value,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 36,
-                      fontWeight: FontWeight.bold),
+              Align(
+                alignment: const Alignment(-1, -0.93),
+                child: IconButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: const Icon(
+                      FeatherIcons.chevronLeft,
+                      size: 40,
+                    )),
+              ),
+              //text
+              Obx(
+                () => Align(
+                  alignment: const Alignment(0, -0.65),
+                  child: Text(
+                    fireViewModel.displayText.value,
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 36,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
-            ),
-            //fire
-            Obx(
-              () {
-                return GestureDetector(
-                  onTap: () {
-                    //increase fontsize
-                    if (!_fireViewModel.isFull.value)
-                      _fireViewModel.increaseSize();
+              //fire
+              Obx(
+                () {
+                  return GestureDetector(
+                    onTap: () {
+                      //increase fontsize
+                      if (!fireViewModel.isFull.value)
+                        fireViewModel.increaseSize();
 
-                    if (_fireViewModel.isFull.value)
-                      _fireViewModel.decreaseSize();
-                  },
-                  child: Center(
-                    child: AnimatedDefaultTextStyle(
-                      duration: const Duration(milliseconds: 222),
-                      style: TextStyle(
-                        fontSize: _fireViewModel.size.value,
+                      if (fireViewModel.isFull.value)
+                        fireViewModel.decreaseSize();
+                    },
+                    child: Center(
+                      child: AnimatedDefaultTextStyle(
+                        duration: const Duration(milliseconds: 222),
+                        style: TextStyle(
+                          fontSize: fireViewModel.size.value,
+                        ),
+                        child: const Text('🔥'),
                       ),
-                      child: const Text('🔥'),
                     ),
-                  ),
-                );
-              },
-            ),
-
-            //tap hint
-            Obx(
-              () => Align(
-                alignment: const Alignment(0, 0.75),
-                child: Text(
-                  !_fireViewModel.isFull.value
-                      ? '  Tap 해서\n감정땔감 넣기!'
-                      : '좋아! 잘했어!',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 21,
-                  ),
-                ),
+                  );
+                },
               ),
-            ),
-          ],
+
+              //tap hint
+              Obx(
+                () => !fireViewModel.isEnd.value
+                    ? Align(
+                        alignment: const Alignment(0, 0.65),
+                        child: Text(
+                          !fireViewModel.isFull.value
+                              ? '  Tap 해서\n감정땔감 넣기!'
+                              : '좋아! 잘했어!',
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 21,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    : Align(
+                        alignment: const Alignment(0, 0.65),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Btn(
+                              mode: Mode.thanks,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Get.off(
+                                  () => const ModeView(),
+                                  transition: Transition.fadeIn,
+                                );
+                              },
+                              child: Text('처음으로',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color:
+                                        Theme.of(context).colorScheme.tertiary,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor:
+                                        Theme.of(context).colorScheme.tertiary,
+                                  )),
+                            ),
+                          ],
+                        ),
+                      ),
+              ),
+            ],
+          ),
         ),
       ),
     );
