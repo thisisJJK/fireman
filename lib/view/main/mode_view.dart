@@ -1,6 +1,6 @@
+import 'package:fireman/model/record_model.dart';
 import 'package:fireman/view/main/widget/btn.dart';
 import 'package:fireman/view/main/widget/history_btn.dart';
-import 'package:fireman/view_model/firewood_thanks_view_model.dart';
 import 'package:flutter/material.dart';
 
 class ModeView extends StatelessWidget {
@@ -10,7 +10,6 @@ class ModeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-
       body: SafeArea(
         child: Center(
           child: Stack(
@@ -23,7 +22,6 @@ class ModeView extends StatelessWidget {
                   height: 100,
                 ),
               ),
-              
               const Align(
                 alignment: Alignment(0, -0.6),
                 child: Text(

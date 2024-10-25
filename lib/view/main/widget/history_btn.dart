@@ -10,7 +10,7 @@ class HistoryBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Get.to(
-        () => const HistoryView(),
+        () =>  HistoryView(),
         transition: Transition.fadeIn,
       ),
       child: Container(

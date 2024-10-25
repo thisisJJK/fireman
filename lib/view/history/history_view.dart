@@ -6,17 +6,18 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
 
 class HistoryView extends StatelessWidget {
-  const HistoryView({super.key});
+  HistoryView({super.key});
+  final HistoryViewModel historyViewModel = Get.put(HistoryViewModel());
 
   @override
   Widget build(BuildContext context) {
-    final HistoryViewModel historyViewModel = Get.put(HistoryViewModel());
     return Scaffold(
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
         child: Column(
           children: [
+            //로고
             Stack(
               alignment: Alignment.center,
               children: [
@@ -62,14 +63,19 @@ class HistoryView extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: ListView.separated(
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: 8,
+              child: Obx(
+                () => ListView.separated(
+                  separatorBuilder: (context, index) => const SizedBox(
+                    height: 8,
+                  ),
+                  reverse: true,
+                  itemCount: historyViewModel.dates.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return HistoryCard(
+                      date: historyViewModel.dates[index],
+                    );
+                  },
                 ),
-                itemCount: 5,
-                itemBuilder: (BuildContext context, int index) {
-                  return const HistoryCard();
-                },
               ),
             ),
           ],

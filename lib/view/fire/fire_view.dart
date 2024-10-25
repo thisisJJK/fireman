@@ -1,7 +1,7 @@
+import 'package:fireman/model/record_model.dart';
 import 'package:fireman/view/main/mode_view.dart';
 import 'package:fireman/view/main/widget/btn.dart';
 import 'package:fireman/view_model/fire_view_model.dart';
-import 'package:fireman/view_model/firewood_thanks_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';

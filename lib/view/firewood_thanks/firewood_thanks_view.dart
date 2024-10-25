@@ -1,3 +1,4 @@
+import 'package:fireman/model/record_model.dart';
 import 'package:fireman/view/fire/fire_view.dart';
 import 'package:fireman/view/history/history_view.dart';
 import 'package:fireman/view/main/mode_view.dart';
@@ -14,6 +15,7 @@ class FirewoodThanksView extends StatelessWidget {
   Widget build(BuildContext context) {
     final FirewoodThanksViewModel firewoodThanksViewModel =
         Get.put(FirewoodThanksViewModel());
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.black,
@@ -69,59 +71,67 @@ class FirewoodThanksView extends StatelessWidget {
               Stack(
                 alignment: Alignment.bottomRight,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        30,
-                      ),
-                    ),
-                    child: TextField(
-                      autofocus: true,
-                      maxLines: 5,
-                      minLines: 1,
-                      controller: firewoodThanksViewModel.textEditingController,
-                      decoration: InputDecoration(
-                        hintText: mode == Mode.firewood
-                            ? '불태워 없앨 안좋은 기억이나 \n경험을 적어보세요.'
-                            : '나에 대한 칭찬이나\n감사한 일을 적어보세요.',
-                        hintStyle: const TextStyle(fontSize: 21),
-                        filled: true,
-                        fillColor: mode == Mode.firewood
-                            ? Theme.of(context).colorScheme.secondaryContainer
-                            : Theme.of(context).colorScheme.tertiaryContainer,
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                        ),
-                        isDense: true,
-                        contentPadding:
-                            const EdgeInsets.fromLTRB(10, 10, 30, 10),
-                      ),
-                      style: TextStyle(
-                        color: mode == Mode.firewood
-                            ? Theme.of(context).colorScheme.onSecondaryContainer
-                            : Theme.of(context).colorScheme.onTertiaryContainer,
-                        fontSize: 21,
-                      ),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      mode == Mode.firewood
-                          ? Get.to(() => FireView(),
-                              transition: Transition.fadeIn)
-                          : Get.to(() => const HistoryView(),
-                              transition: Transition.fadeIn);
-
-                      firewoodThanksViewModel.textEditingController.clear();
-                    },
-                    icon: const Icon(
-                      FeatherIcons.send,
-                    ),
-                  ),
+                  textField(firewoodThanksViewModel, context),
+                  sendBtn(firewoodThanksViewModel),
                 ],
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  IconButton sendBtn(FirewoodThanksViewModel firewoodThanksViewModel) {
+    return IconButton(
+      onPressed: () {
+        final controller = firewoodThanksViewModel.textEditingController;
+        firewoodThanksViewModel.insertFirewood(controller.text, mode.name);
+        mode == Mode.firewood
+            ? Get.to(() => FireView(), transition: Transition.fadeIn)
+            : Get.to(() =>  HistoryView(), transition: Transition.fadeIn);
+
+        controller.clear();
+      },
+      icon: const Icon(
+        FeatherIcons.send,
+      ),
+    );
+  }
+
+  Container textField(
+      FirewoodThanksViewModel firewoodThanksViewModel, BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(
+          30,
+        ),
+      ),
+      child: TextField(
+        autofocus: true,
+        maxLines: 5,
+        minLines: 1,
+        controller: firewoodThanksViewModel.textEditingController,
+        decoration: InputDecoration(
+          hintText: mode == Mode.firewood
+              ? '불태워 없앨 안좋은 기억이나 \n경험을 적어보세요.'
+              : '나에 대한 칭찬이나\n감사한 일을 적어보세요.',
+          hintStyle: const TextStyle(fontSize: 21),
+          filled: true,
+          fillColor: mode == Mode.firewood
+              ? Theme.of(context).colorScheme.secondaryContainer
+              : Theme.of(context).colorScheme.tertiaryContainer,
+          enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide.none,
+          ),
+          isDense: true,
+          contentPadding: const EdgeInsets.fromLTRB(10, 10, 30, 10),
+        ),
+        style: TextStyle(
+          color: mode == Mode.firewood
+              ? Theme.of(context).colorScheme.onSecondaryContainer
+              : Theme.of(context).colorScheme.onTertiaryContainer,
+          fontSize: 21,
         ),
       ),
     );

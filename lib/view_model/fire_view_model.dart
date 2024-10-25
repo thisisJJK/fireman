@@ -44,7 +44,7 @@ class FireViewModel extends GetxController {
       displayText.value = '   이제 불이 꺼졌어!\n마음이 가벼워졌을거야!';
 
       isEnd.value = true;
-      print(size);
+
     }
   }
 }

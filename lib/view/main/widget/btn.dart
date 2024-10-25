@@ -1,5 +1,5 @@
+import 'package:fireman/model/record_model.dart';
 import 'package:fireman/view/firewood_thanks/firewood_thanks_view.dart';
-import 'package:fireman/view_model/firewood_thanks_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,8 +24,8 @@ class Btn extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            mode == Mode.firewood ? '분노,짜증,억울함으로' : '긍정과 감사 한 마디로',
-            style: const TextStyle(color: Colors.white, fontSize: 20),
+            mode == Mode.firewood ? '나쁜마음 다 태워버릴' : '차갑게 마음을 가라앉혀줄',
+            style: const TextStyle(color: Colors.white, fontSize: 18),
           ),
           Container(
             width: MediaQuery.of(context).size.width * 0.8,
