@@ -1,3 +1,4 @@
+import 'package:fireman/service/ad_service.dart';
 import 'package:fireman/view/main/mode_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -19,6 +20,8 @@ class _SplashViewState extends State<SplashView>
   @override
   void initState() {
     super.initState();
+    adHelper().requestTrackingPermission();
+
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
@@ -37,7 +40,7 @@ class _SplashViewState extends State<SplashView>
 
     SchedulerBinding.instance.addPostFrameCallback((_) {
       Future.delayed(const Duration(seconds: 3), () {
-        Get.off(() => const ModeView(), transition: Transition.fadeIn);
+        Get.off(() =>  ModeView(), transition: Transition.fadeIn);
       });
     });
 

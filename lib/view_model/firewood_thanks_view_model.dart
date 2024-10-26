@@ -16,14 +16,18 @@ class FirewoodThanksViewModel extends GetxController {
 
   Future<bool> insertFirewood(String text, String type) async {
     try {
-      databaseService.databaseConfig().then((_) => databaseService.insertRecord(
-            RecordModel(
-              id: null,
-              date: today(),
-              content: text,
-              type: type,
-            ),
-          ));
+      if (text.isNotEmpty) {
+        databaseService
+            .databaseConfig()
+            .then((_) => databaseService.insertRecord(
+                  RecordModel(
+                    id: null,
+                    date: today(),
+                    content: text,
+                    type: type,
+                  ),
+                ));
+      }
       return true;
     } catch (err) {
       print('firewood insert err : ${err.toString()}');

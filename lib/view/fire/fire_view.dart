@@ -22,7 +22,7 @@ class FireView extends StatelessWidget {
               //logo
               GestureDetector(
                 onTap: () => Get.off(
-                  () => const ModeView(),
+                  () =>  ModeView(),
                   transition: Transition.fadeIn,
                 ),
                 child: Align(
@@ -64,11 +64,13 @@ class FireView extends StatelessWidget {
                   return GestureDetector(
                     onTap: () {
                       //increase fontsize
-                      if (!fireViewModel.isFull.value)
+                      if (!fireViewModel.isFull.value) {
                         fireViewModel.increaseSize();
+                      }
 
-                      if (fireViewModel.isFull.value)
+                      if (fireViewModel.isFull.value) {
                         fireViewModel.decreaseSize();
+                      }
                     },
                     child: Center(
                       child: AnimatedDefaultTextStyle(
@@ -112,7 +114,7 @@ class FireView extends StatelessWidget {
                             TextButton(
                               onPressed: () {
                                 Get.off(
-                                  () => const ModeView(),
+                                  () =>  ModeView(),
                                   transition: Transition.fadeIn,
                                 );
                               },

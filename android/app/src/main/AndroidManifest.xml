@@ -1,8 +1,13 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        package="com.jjk.fireman">
     <application
-        android:label="fireman"
+        android:label="감정소방관"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+         <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-7607859450565086~7234722331"
+            />
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -30,6 +35,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+       
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

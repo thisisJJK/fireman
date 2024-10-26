@@ -38,7 +38,7 @@ class FirewoodThanksView extends StatelessWidget {
                       )),
                   GestureDetector(
                     onTap: () => Get.off(
-                      () => const ModeView(),
+                      () =>  ModeView(),
                       transition: Transition.fadeIn,
                     ),
                     child: Align(

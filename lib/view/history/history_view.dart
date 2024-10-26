@@ -4,10 +4,11 @@ import 'package:fireman/view_model/history_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class HistoryView extends StatelessWidget {
   HistoryView({super.key});
-  final HistoryViewModel historyViewModel = Get.put(HistoryViewModel());
+  final HistoryViewModel historyViewModel = Get.put(HistoryViewModel(),permanent: true);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class HistoryView extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () => Get.off(
-                    () => const ModeView(),
+                    () => ModeView(),
                     transition: Transition.fadeIn,
                   ),
                   child: Align(
@@ -62,13 +63,13 @@ class HistoryView extends StatelessWidget {
                 ),
               ),
             ),
+            //list
             Expanded(
               child: Obx(
                 () => ListView.separated(
                   separatorBuilder: (context, index) => const SizedBox(
                     height: 8,
                   ),
-                  reverse: true,
                   itemCount: historyViewModel.dates.length,
                   itemBuilder: (BuildContext context, int index) {
                     return HistoryCard(
@@ -77,6 +78,27 @@ class HistoryView extends StatelessWidget {
                   },
                 ),
               ),
+            ),
+            //ad
+
+            Obx(
+              () {
+                if (historyViewModel.isLoaded.value) {
+                  return SafeArea(
+                    child: SizedBox(
+                      width: historyViewModel.bannerAd.value!.size.width
+                          .toDouble(),
+                      height: historyViewModel.bannerAd.value!.size.height
+                          .toDouble(),
+                      child: AdWidget(
+                        ad: historyViewModel.bannerAd.value!,
+                      ),
+                    ),
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              },
             ),
           ],
         ),

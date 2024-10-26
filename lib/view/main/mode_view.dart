@@ -1,11 +1,15 @@
 import 'package:fireman/model/record_model.dart';
 import 'package:fireman/view/main/widget/btn.dart';
 import 'package:fireman/view/main/widget/history_btn.dart';
+import 'package:fireman/view_model/mode_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class ModeView extends StatelessWidget {
-  const ModeView({super.key});
-
+  ModeView({super.key});
+  final ModeViewModel _modeViewModel =
+      Get.put(ModeViewModel(), permanent: true);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +52,31 @@ class ModeView extends StatelessWidget {
               const Align(
                 alignment: Alignment(0, 0.65),
                 child: HistoryBtn(),
-              )
+              ),
+              Obx(
+                () {
+                  if (_modeViewModel.isLoaded.value) {
+                    return SafeArea(
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: SizedBox(
+                          width: _modeViewModel.bannerAd.value!.size.width
+                              .toDouble(),
+                          height: _modeViewModel.bannerAd.value!.size.height
+                              .toDouble(),
+                          child: AdWidget(
+                            ad: _modeViewModel.bannerAd.value!,
+                          ),
+                        ),
+                      ),
+                    );
+                  } else {
+                    return const SizedBox(
+                      height: 0,
+                    );
+                  }
+                },
+              ),
             ],
           ),
         ),

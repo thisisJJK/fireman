@@ -1,4 +1,4 @@
-package com.example.fireman
+package com.jjk.fireman
 
 import io.flutter.embedding.android.FlutterActivity
 

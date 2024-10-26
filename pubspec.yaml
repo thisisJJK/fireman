@@ -1,5 +1,5 @@
 name: fireman
-description: "A new Flutter project."
+description: "fireman"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -40,6 +40,8 @@ dependencies:
   sqflite: ^2.4.0
   path: ^1.9.0
   intl: ^0.19.0
+  google_mobile_ads: ^5.2.0
+  app_tracking_transparency: ^2.0.6
 
 dev_dependencies:
   flutter_test:
